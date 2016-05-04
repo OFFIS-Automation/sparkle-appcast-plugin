@@ -63,7 +63,7 @@ class Sparkle_appcastPublisher < Jenkins::Tasks::Publisher
 
     @rss_filename ||= project_name + ".rss"
 
-    # Build symlink tree and keep track of URLs and filenames
+    # Build link tree and keep track of URLs and filenames
     builds.each do |b|
       build = b[:build]
       version_dir = project_name + "-" + build.number.to_s
@@ -71,7 +71,7 @@ class Sparkle_appcastPublisher < Jenkins::Tasks::Publisher
       first_artifact = build.getArtifacts.first.getFile
       b[:file] = @output_directory + version_dir + first_artifact.getName
       FileUtils.mkdir_p @output_directory + version_dir
-      FileUtils.ln_sf first_artifact.getAbsolutePath, b[:file]
+      FileUtils.ln first_artifact.getAbsolutePath, b[:file]
       b[:url] = "#{@url_base}/#{version_dir}/#{first_artifact.getName}"
     end
 
