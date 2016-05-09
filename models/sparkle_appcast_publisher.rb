@@ -71,7 +71,7 @@ class Sparkle_appcastPublisher < Jenkins::Tasks::Publisher
       first_artifact = build.getArtifacts.first.getFile
       b[:file] = @output_directory + version_dir + first_artifact.getName
       FileUtils.mkdir_p @output_directory + version_dir
-      FileUtils.ln first_artifact.getAbsolutePath, b[:file]
+      FileUtils.ln first_artifact.getAbsolutePath, b[:file], :force => true
       b[:url] = "#{@url_base}/#{version_dir}/#{first_artifact.getName}"
     end
 
